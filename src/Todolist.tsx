@@ -26,7 +26,7 @@ export const Todolist = (props: TodolistPropsType) => {
                         return (
                             <li><input type="checkbox" checked={el.isDone}/>
                                 <span>{el.title}</span>
-                                {/*<button onClick={() => { alert('click')}}>x</button>*/}
+                                <button onClick={() => alert (el.id) }>x</button>
                             </li>
                         )
                     }

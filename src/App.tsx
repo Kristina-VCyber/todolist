@@ -1,6 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import {Todolist} from "./Todolist";
+
+
+export function Counter () {
+    let arr = useState(5);
+    let data = arr[0];
+    let setData = arr[1];
+    return <div onClick={ () => { setData(data + 1)} }>{data}</div>
+
+}
+
+
+
 
 function App() {
 
