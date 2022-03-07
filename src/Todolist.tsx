@@ -20,13 +20,14 @@ export function Todolist(props: PropsType) {
         console.log(filterValue)
         setValueButton(filterValue)
     }
-    let prokladka = props.tasks
+
+    let tasksForRender = props.tasks
 
     if (valueButton === "Active") {
-        prokladka = props.tasks.filter(el => el.isDone === false)
+        tasksForRender = props.tasks.filter(el => el.isDone === false)
     }
     if (valueButton === "Completed") {
-        prokladka = props.tasks.filter(el => el.isDone === true)
+        tasksForRender = props.tasks.filter(el => el.isDone === true)
     }
 
 
@@ -37,7 +38,7 @@ export function Todolist(props: PropsType) {
             <button>+</button>
         </div>
         <ul>
-            {prokladka.map((el, index) => {
+            {tasksForRender.map((el, index) => {
 
                 return (
                     <li key={el.id}>
@@ -48,9 +49,9 @@ export function Todolist(props: PropsType) {
             })}
         </ul>
         <div>
-            <button onClick = {() => tasksFilter("All")}>All</button>
-            <button onClick = {() => tasksFilter("Active")}>Active</button>
-            <button onClick = {() => tasksFilter("Completed")}>Completed</button>
+            <button onClick={() => tasksFilter("All")}>All</button>
+            <button onClick={() => tasksFilter("Active")}>Active</button>
+            <button onClick={() => tasksFilter("Completed")}>Completed</button>
         </div>
     </div>
 }

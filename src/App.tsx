@@ -4,7 +4,7 @@ import {Todolist} from './Todolist';
 
 function App() {
 
-    const [tasks1, setTasks1] = useState([
+    const [task, setTask] = useState([
         {id: 1, title: "HTML&CSS", isDone: true},
         {id: 2, title: "JS", isDone: true},
         {id: 3, title: "ReactJS", isDone: false}
@@ -12,15 +12,14 @@ function App() {
 
 
     const removeTask = (newId: number) => {
-        setTasks1(tasks1.filter(el => el.id !== newId))
+        setTask(task.filter(el => el.id !== newId))
     }
-
 
 
     return (
         <div className="App">
             <Todolist title="What to learn"
-                      tasks={tasks1}
+                      tasks={task}
                       removeTask={removeTask}
             />
 
