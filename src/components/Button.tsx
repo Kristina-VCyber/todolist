@@ -1,19 +1,23 @@
 import React from 'react';
+import style from "../Todolist.module.css";
+import {FilterValuesType} from "../App";
 
-
-type Button = {
-    name: string;
-    callBack: () => void
+type propsType={
+    name:string
+    callBack:(filter:FilterValuesType)=>void
+    filter:FilterValuesType
+    isActive:boolean
 }
-export const Button = (props: Button) => {
-    const onClickHandler = () => {
-        props.callBack()
+
+export const Button = (props:propsType) => {
+    const filterGlobalFoo=(filterValue:FilterValuesType)=>{
+        console.log(filterValue)
+        props.callBack(filterValue)
     }
-
-
     return (
-
-        <button onClick={onClickHandler}>{props.name}</button>
-
+        <button
+            className={props.name === props.filter ? style.activeFilter : ''}
+            onClick={()=>filterGlobalFoo(props.filter)}
+        >{props.name}</button>
     );
-}
+};
