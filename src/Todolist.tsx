@@ -11,7 +11,7 @@ export type TaskType = {
     isDone: boolean
 }
 
-type PropsType = {
+export type PropsType = {
     title: string
     tasks: Array<TaskType>
     removeTask: (todolistId: string, taskId: string) => void

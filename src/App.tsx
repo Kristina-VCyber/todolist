@@ -50,12 +50,9 @@ function App() {
         setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
     }
 
-    function addTodolist(title: string) {
-        const newTodolistId = v1()
-        const newTodolist: TodolistType = {id: newTodolistId, title: title, filter: 'all'};
-        setTodolists([...todolists, newTodolist])
-        setTasks({...tasks, [newTodolistId]: []})
-    }
+
+
+
 
     function changeStatus(todolistId: string, taskId: string, isDone: boolean) {
         setTasks({
@@ -73,8 +70,19 @@ function App() {
             });
     }
 
-    function changeTodolistFilter(todolistId: string, value: FilterValuesType) {
-        setTodolists(todolists.map(el => el.id === todolistId ? {...el, filter: value} : el))
+
+
+
+
+    function addTodolist(title: string) {
+        const newTodolistId = v1()
+        const newTodolist: TodolistType = {id: newTodolistId, title: title, filter: 'all'};
+        setTodolists([...todolists, newTodolist])
+        setTasks({...tasks, [newTodolistId]: []})
+    }
+
+    function changeTodolistFilter(todolistId: string, filter: FilterValuesType) {
+        setTodolists(todolists.map(el => el.id === todolistId ? {...el, filter: filter} : el))
     }
 
     function changeTodolistTitle(todolistId: string, title: string) {
@@ -86,66 +94,14 @@ function App() {
 
     function removeTodolist(todolistId: string) {
         setTodolists(todolists.filter(el => el.id !== todolistId))
+
+
+
         const copyTasks = {...tasks}
         delete copyTasks[todolistId]
         setTasks(copyTasks)
     }
 
-//
-//     return (
-//         <div className="App">
-//
-//             <AppBar position="static">
-//                 <Toolbar style={{justifyContent: "space-between"}}>
-//
-//                     <IconButton edge="start" color="inherit" aria-label="menu">
-//                         <WidgetsOutlinedIcon/>
-//                     </IconButton>
-//                     <Typography variant="h6">
-//                         Todolists
-//                     </Typography>
-//                     <Button color="inherit" variant={"outlined"}>Login</Button>
-//                 </Toolbar>
-//             </AppBar>
-//
-//
-//             <Container fixed>
-// <div>
-//             <AddItemForm addItem={addTodolist}/>
-// </div>
-//
-//             {todolists.map(el => {
-//                 let tasksForTodolist = tasks[el.id];
-//
-//                 if (el.filter === "active") {
-//                     tasksForTodolist = tasks[el.id].filter(t => !t.isDone);
-//                 }
-//                 if (el.filter === "completed") {
-//                     tasksForTodolist = tasks[el.id].filter(t => t.isDone);
-//                 }
-//                 return <Paper style ={{display:"inline-block"}}>
-//                 <Todolist
-//                     key={el.id}
-//                     todolistId={el.id}
-//                     title={el.title}
-//                     tasks={tasksForTodolist}
-//                     removeTask={removeTask}
-//                     changeFilter={changeTodolistFilter}
-//                     addTask={addTask}
-//                     changeTaskStatus={changeStatus}
-//                     filter={el.filter}
-//                     removeTodolist={removeTodolist}
-//                     changeTaskTitle={changeTaskTitle}
-//                     changeTodolistTitle={changeTodolistTitle}
-//                 />
-//                 </Paper>
-//             })}
-//             </Container>
-//         </div>
-//     );
-// }
-//
-// export default App;
 
 
     const todoListComponents = todolists.map(el => {
