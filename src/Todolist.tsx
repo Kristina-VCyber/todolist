@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useCallback } from 'react';
 import { AddItemForm } from './AddItemForm';
 import { EditableSpan } from './EditableSpan';
 import { Button, Checkbox, IconButton } from '@material-ui/core';
@@ -22,7 +22,8 @@ type PropsType = {
     filter: FilterValuesType
 }
 
-export function Todolist(props: PropsType) {
+export const Todolist = React.memo(function (props: PropsType) {
+    console.log("Todolist called")
 
     const tasks = useSelector<AppRootState, Array<TaskType>>(state => state.tasks[props.id])
     const dispatch = useDispatch()
@@ -57,9 +58,9 @@ export function Todolist(props: PropsType) {
                     <Delete/>
                 </IconButton>
             </h3>
-            <AddItemForm addItem={(title) => {
+            <AddItemForm addItem={useCallback((title) => {
                 dispatch(addTaskAC(title, props.id))
-            }}/>
+            },[])}/>
             <div>
                 {
                     tasksForTodolist.map(t => {
@@ -106,7 +107,7 @@ export function Todolist(props: PropsType) {
                 </Button>
             </div>
         </div>
-    }
+    })
 
 
 
