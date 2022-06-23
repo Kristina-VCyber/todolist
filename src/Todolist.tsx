@@ -1,12 +1,13 @@
-import React, { ChangeEvent, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { AddItemForm } from './AddItemForm';
 import { EditableSpan } from './EditableSpan';
-import { Button, Checkbox, IconButton } from '@material-ui/core';
+import { Button, IconButton } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import { useDispatch, useSelector } from "react-redux";
 import { AppRootState } from "./state/store";
-import { addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from "./state/tasks-reducer";
+import { addTaskAC } from "./state/tasks-reducer";
 import { FilterValuesType } from "./AppWithRedux";
+import { Task } from "./Task";
 
 export type TaskType = {
     id: string
@@ -65,6 +66,7 @@ export const Todolist = React.memo(function (props: PropsType) {
             {tasksForTodolist.map((t) => <Task
                 task={t}
                 todolistId={props.id}
+                key={t.id}
             />)
             }
         </div>
@@ -85,32 +87,3 @@ export const Todolist = React.memo(function (props: PropsType) {
         </div>
     </div>
 })
-
-
-export type TaskPropsType = {
-    task: TaskType
-    todolistId: string
-}
-const Task = (props: TaskPropsType) => {
-    const dispatch = useDispatch();
-    const onClickHandler = () => dispatch(removeTaskAC(props.task.id, props.todolistId));
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        let newIsDoneValue = e.currentTarget.checked;
-        dispatch(changeTaskStatusAC(props.task.id, newIsDoneValue, props.todolistId))
-    }
-    const onTitleChangeHandler = (newValue: string) => {
-        dispatch(changeTaskTitleAC(props.task.id, newValue, props.todolistId))
-    }
-    return <div key={props.task.id} className={props.task.isDone ? "is-done" : ""}>
-        <Checkbox
-            checked={props.task.isDone}
-            color="primary"
-            onChange={onChangeHandler}
-        />
-
-        <EditableSpan value={props.task.title} onChange={onTitleChangeHandler}/>
-        <IconButton onClick={onClickHandler}>
-            <Delete/>
-        </IconButton>
-    </div>
-}
