@@ -10,18 +10,22 @@ import { TaskType } from "./Todolist";
 export type TaskPropsType = {
     task: TaskType
     todolistId: string
-
 }
-export const Task = React.memo( (props: TaskPropsType) => {
+
+export const Task = React.memo((props: TaskPropsType) => {
     const dispatch = useDispatch();
+
     const onClickHandler = () => dispatch(removeTaskAC(props.task.id, props.todolistId));
+
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked;
         dispatch(changeTaskStatusAC(props.task.id, newIsDoneValue, props.todolistId))
     }
+
     const onTitleChangeHandler = useCallback((newValue: string) => {
         dispatch(changeTaskTitleAC(props.task.id, newValue, props.todolistId))
-    },[props.task.id, dispatch, props.todolistId])
+    }, [props.task.id, dispatch, props.todolistId])
+
     return <div key={props.task.id} className={props.task.isDone ? "is-done" : ""}>
         <Checkbox
             checked={props.task.isDone}
