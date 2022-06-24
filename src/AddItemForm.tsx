@@ -34,7 +34,7 @@ export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
 
     return <div>
         <TextField variant="outlined"
-                   error={!!error}
+                   error={Boolean(error)}
                    value={title}
                    onChange={onChangeHandler}
                    onKeyPress={onKeyPressHandler}
