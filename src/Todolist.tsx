@@ -6,25 +6,20 @@ import { Delete } from '@material-ui/icons';
 import { useDispatch, useSelector } from "react-redux";
 import { AppRootState } from "./state/store";
 import { addTaskAC } from "./state/tasks-reducer";
-import { FilterValuesType } from "./AppWithRedux";
 import { Task } from "./Task";
+import { FilterValuesType, TaskType } from "./types";
 
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
+
 type PropsType = {
     id: string
     title: string
-    changeFilter: (todolistId: string, value: any) => void
+    changeFilter: (todolistId: string, value:FilterValuesType) => void
     removeTodolist: (id: string) => void
     changeTodolistTitle: (id: string, newTitle: string) => void
     filter: FilterValuesType
 }
 
 export const Todolist = React.memo(function (props: PropsType) {
-    console.log("Todolist called")
 
     const tasks = useSelector<AppRootState, Array<TaskType>>(state => state.tasks[props.id])
     const dispatch = useDispatch()
@@ -32,9 +27,11 @@ export const Todolist = React.memo(function (props: PropsType) {
     const addTask = useCallback((title) => {
         dispatch(addTaskAC(title, props.id))
     }, [dispatch, props.id])
+
     const removeTodolist = useCallback(() => {
         props.removeTodolist(props.id);
     }, [props.removeTodolist, props.id]);
+
     const changeTodolistTitle = useCallback((title: string) => {
         props.changeTodolistTitle(props.id, title);
     }, [props.changeTodolistTitle, props.id]);
