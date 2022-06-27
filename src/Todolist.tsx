@@ -13,11 +13,14 @@ import { FilterValuesType, TaskType } from "./types";
 type PropsType = {
     id: string
     title: string
-    changeFilter: (todolistId: string, value:FilterValuesType) => void
+    changeFilter: (todolistId: string, value: FilterValuesType) => void
     removeTodolist: (id: string) => void
     changeTodolistTitle: (id: string, newTitle: string) => void
     filter: FilterValuesType
 }
+
+
+
 
 export const Todolist = React.memo(function (props: PropsType) {
 
@@ -39,7 +42,7 @@ export const Todolist = React.memo(function (props: PropsType) {
     const onAllClickHandler = useCallback(() => props.changeFilter(props.id, "all"), [props.changeFilter, props.id]);
     const onActiveClickHandler = useCallback(() => props.changeFilter(props.id, "active"), [props.changeFilter, props.id]);
     const onCompletedClickHandler = useCallback(() => props.changeFilter(props.id, "completed"), [props.changeFilter, props.id]);
-
+    const getBtnVariant = (btnVariant:FilterValuesType) => props.filter === btnVariant ? 'outlined' : 'text'
 
     let allTodolistTasks = tasks;
     let tasksForTodolist = allTodolistTasks;
@@ -68,18 +71,21 @@ export const Todolist = React.memo(function (props: PropsType) {
             }
         </div>
         <div>
-            <Button variant={props.filter === 'all' ? 'outlined' : 'text'}
-                    onClick={onAllClickHandler}
-                    color={'default'}
+            <Button
+                variant={getBtnVariant( "all")}
+                onClick={onAllClickHandler}
+                color={'default'}
             >All
             </Button>
-            <Button variant={props.filter === 'active' ? 'outlined' : 'text'}
-                    onClick={onActiveClickHandler}
-                    color={'primary'}>Active
+            <Button
+                variant={getBtnVariant("active")}
+                onClick={onActiveClickHandler}
+                color={'primary'}>Active
             </Button>
-            <Button variant={props.filter === 'completed' ? 'outlined' : 'text'}
-                    onClick={onCompletedClickHandler}
-                    color={'secondary'}>Completed
+            <Button
+                variant={getBtnVariant("completed")}
+                onClick={onCompletedClickHandler}
+                color={'secondary'}>Completed
             </Button>
         </div>
     </div>
